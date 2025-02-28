@@ -1,9 +1,11 @@
 ﻿using System;
 using AutoMapper;
 using Fishfarm.Management.Service.API.Data.Context;
+using Fishfarm.Management.Service.API.Data.Models;
 using Fishfarm.Management.Service.API.Data.RequestModels;
 using Fishfarm.Management.Service.API.Data.ResponseModels;
 using Fishfarm.Management.Service.API.Interfaces;
+using Fishfarm.Management.Service.API.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fishfarm.Management.Service.API.Services;
@@ -30,10 +32,36 @@ public class FishFarmService : IFishFarmService
     {
         using var dbContext = new FishFarmDbContext();
 
-        var res = await dbContext.AddAsync(request);
+        var fishFarm = _mapper.Map<FishFarm>(request);
+        var res = await dbContext.FishFarms.AddAsync(fishFarm);
         await dbContext.SaveChangesAsync();
 
-        return _mapper.Map<FishFarmResponse>(res);
+        return _mapper.Map<FishFarmResponse>(res.Entity);
     }
+
+    public async Task<FishFarmResponse> UpdateFishFarmAsync(long id, FishFarmRequest request)
+    {
+        using var dbContext = new FishFarmDbContext();
+
+        var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => id == _.Id) ?? throw new FishFarmNotFoundException("Fish farm not found");
+
+        fishFarm.Name = request.Name;
+        //fishFarm.
+        var res = dbContext.FishFarms.Update(fishFarm);
+        await dbContext.SaveChangesAsync();
+
+        return _mapper.Map<FishFarmResponse>(res.Entity);
+    }
+
+    public async Task DeleteFishFarmAsync(long id)
+    {
+        using var dbContext = new FishFarmDbContext();
+
+        var fishFarm = await dbContext.FishFarms.FindAsync(id) ?? throw new FishFarmNotFoundException("Fish farm not found");
+        dbContext.FishFarms.Remove(fishFarm);
+        await dbContext.SaveChangesAsync();
+    }
+
+
 }
 

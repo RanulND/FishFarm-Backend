@@ -7,9 +7,9 @@ namespace Fishfarm.Management.Service.API.Data.RequestModels
 	{
         public string Name { get; set; } = default!;
         public long CageCount { get; set; }
-        public bool Hasbarge { get; set; }
+        public bool HasBarge { get; set; }
         public string Picture { get; set; } = default!;
-        public Coordinate Coordinate { get; set; } = default!;
+        public CoordinateRequest Coordinate { get; set; } = default!;
     }
 }
 

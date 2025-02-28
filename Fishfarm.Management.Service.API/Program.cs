@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddScoped<IFishFarmService, FishFarmService>();
+builder.Services.AddScoped<IWorkerService, WorkerService>();
 
 var connectionString = builder.Configuration.GetConnectionString("fishfarm_db")!;
 builder.Services.AddDbContext<FishFarmDbContext>(_ => _.UseSqlServer(connectionString));

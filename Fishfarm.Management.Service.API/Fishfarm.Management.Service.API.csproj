@@ -31,6 +31,7 @@
     <None Remove="Data\ResponseModels\" />
     <None Remove="Data\RequestModels\" />
     <None Remove="Services\Mappers\" />
+    <None Remove="Services\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -42,5 +43,6 @@
     <Folder Include="Data\ResponseModels\" />
     <Folder Include="Data\RequestModels\" />
     <Folder Include="Services\Mappers\" />
+    <Folder Include="Services\Exceptions\" />
   </ItemGroup>
 </Project>

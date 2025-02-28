@@ -13,6 +13,9 @@ public class MapperProfile : Profile
 		CreateMap<FishFarm, FishFarmResponse>();
 		CreateMap<Coordinate, CoordinateResponse>();
 		CreateMap<FishFarmRequest, FishFarm>();
+		CreateMap<CoordinateRequest, Coordinate>();
+		CreateMap<WorkerRequest, Worker>();
+		CreateMap<Worker, WorkerResponse>();
     }
 }
 

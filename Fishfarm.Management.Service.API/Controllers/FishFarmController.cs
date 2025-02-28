@@ -1,6 +1,7 @@
 ﻿using System;
 using Fishfarm.Management.Service.API.Data.RequestModels;
 using Fishfarm.Management.Service.API.Interfaces;
+using Fishfarm.Management.Service.API.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fishfarm.Management.Service.API.Controllers;
@@ -22,7 +23,7 @@ public class FishFarmController : ControllerBase
 		try
 		{
 			return Ok(await _fishFarmService.GetAllFishFarmsAsync());
-		}catch (Exception e)
+		} catch (Exception e)
 		{
 			return BadRequest(e.Message);
 		}
@@ -34,8 +35,41 @@ public class FishFarmController : ControllerBase
 		try
 		{
 			return Ok(await _fishFarmService.CreateFishFarmAsync(request));
+		} catch (Exception e)
+		{
+			return BadRequest(e.Message);
+		}
+	}
+
+	[HttpPatch("{id}")]
+	public async Task<IActionResult> UpdateFishFarm(long id, [FromBody] FishFarmRequest request)
+	{
+		try
+		{
+			return Ok(await _fishFarmService.UpdateFishFarmAsync(id,request));
+		} catch (Exception e)
+		{
+            if (e is FishFarmNotFoundException)
+            {
+                return NotFound(e.Message);
+            }
+            return BadRequest(e.Message);
+		}
+	}
+
+	[HttpDelete("{id}")]
+	public async Task<IActionResult> DeleteFishFarm(long id)
+	{
+		try
+		{
+			await _fishFarmService.DeleteFishFarmAsync(id);
+			return NoContent();
 		}catch (Exception e)
 		{
+			if(e is FishFarmNotFoundException)
+			{
+				return NotFound(e.Message);
+			}
 			return BadRequest(e.Message);
 		}
 	}

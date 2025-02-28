@@ -9,5 +9,9 @@ public interface IFishFarmService
     Task<IEnumerable<FishFarmResponse>> GetAllFishFarmsAsync();
 
     Task<FishFarmResponse> CreateFishFarmAsync(FishFarmRequest request);
+
+    Task<FishFarmResponse> UpdateFishFarmAsync(long id, FishFarmRequest request);
+
+    Task DeleteFishFarmAsync(long id);
 }
 
