@@ -46,7 +46,11 @@ public class FishFarmService : IFishFarmService
         var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => id == _.Id) ?? throw new FishFarmNotFoundException("Fish farm not found");
 
         fishFarm.Name = request.Name;
-        //fishFarm.
+        fishFarm.CageCount = request.CageCount;
+        fishFarm.Coordinate = _mapper.Map<Coordinate>(request.Coordinate);
+        fishFarm.HasBarge = request.HasBarge;
+        fishFarm.Picture = request.Picture;
+        
         var res = dbContext.FishFarms.Update(fishFarm);
         await dbContext.SaveChangesAsync();
 
@@ -57,9 +61,18 @@ public class FishFarmService : IFishFarmService
     {
         using var dbContext = new FishFarmDbContext();
 
-        var fishFarm = await dbContext.FishFarms.FindAsync(id) ?? throw new FishFarmNotFoundException("Fish farm not found");
+        var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => _.Id == id) ?? throw new FishFarmNotFoundException("Fish farm not found");
         dbContext.FishFarms.Remove(fishFarm);
         await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<FishFarmResponse> GetFishFarmAsync(long id)
+    {
+        using var dbContext = new FishFarmDbContext();
+
+        var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => _.Id == id) ?? throw new FishFarmNotFoundException("Fish farm not found");
+
+        return _mapper.Map<FishFarmResponse>(fishFarm);
     }
 
 

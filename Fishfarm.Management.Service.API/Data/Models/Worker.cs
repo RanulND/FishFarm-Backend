@@ -10,7 +10,7 @@ namespace Fishfarm.Management.Service.API.Data.Models
 		public DateTime CertifiedUntil { get; set; }
 		public WorkerPosition WorkerPosition { get; set; }
 		public string? Picture { get; set; }
-		public FishFarm Fishfarm { get; set; } = default!;
+		public FishFarm FishFarm { get; set; } = default!;
 	}
 }
 

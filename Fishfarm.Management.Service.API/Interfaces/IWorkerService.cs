@@ -12,6 +12,6 @@ public interface IWorkerService
 
     Task<WorkerResponse> UpdateWorkerAsync(long id, WorkerRequest request);
 
-    Task DeleteWorkerAsync(long id);
+    Task DeleteWorkerAsync(long id, long fishFarmId);
 }
 

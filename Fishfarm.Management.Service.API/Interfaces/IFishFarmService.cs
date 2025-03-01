@@ -13,5 +13,7 @@ public interface IFishFarmService
     Task<FishFarmResponse> UpdateFishFarmAsync(long id, FishFarmRequest request);
 
     Task DeleteFishFarmAsync(long id);
+
+    Task<FishFarmResponse> GetFishFarmAsync(long id);
 }
 
