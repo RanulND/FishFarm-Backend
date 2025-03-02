@@ -6,7 +6,7 @@ namespace Fishfarm.Management.Service.API.Interfaces;
 
 public interface IWorkerService
 {
-    Task<IEnumerable<WorkerResponse>> GetAllWorkersForFishFarmAsync();
+    Task<IEnumerable<WorkerResponse>> GetAllWorkersForFishFarmAsync(long fishFarmId);
 
     Task<WorkerResponse> CreateWorkerAsync(WorkerRequest request);
 

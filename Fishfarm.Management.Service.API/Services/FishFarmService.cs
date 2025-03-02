@@ -23,7 +23,7 @@ public class FishFarmService : IFishFarmService
     {
         using var dbContext = new FishFarmDbContext();
 
-        var res = await dbContext.FishFarms.ToListAsync();
+        var res = await dbContext.FishFarms.Include(_ => _.Coordinate).ToListAsync();
 
         return _mapper.Map<IEnumerable<FishFarmResponse>>(res);
     }

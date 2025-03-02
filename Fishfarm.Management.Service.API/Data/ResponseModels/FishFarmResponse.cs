@@ -5,6 +5,6 @@ namespace Fishfarm.Management.Service.API.Data.ResponseModels;
 
 public class FishFarmResponse : FishFarm
 {
-    
+    public new CoordinateResponse Coordinate = default!;
 }
 

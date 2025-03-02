@@ -32,6 +32,8 @@
     <None Remove="Data\RequestModels\" />
     <None Remove="Services\Mappers\" />
     <None Remove="Services\Exceptions\" />
+    <None Remove="assets\Worker\" />
+    <None Remove="assets\FishFarm\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -44,5 +46,7 @@
     <Folder Include="Data\RequestModels\" />
     <Folder Include="Services\Mappers\" />
     <Folder Include="Services\Exceptions\" />
+    <Folder Include="Assets\Worker\" />
+    <Folder Include="Assets\FishFarm\" />
   </ItemGroup>
 </Project>

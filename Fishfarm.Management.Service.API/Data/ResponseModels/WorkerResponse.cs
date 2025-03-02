@@ -10,7 +10,7 @@ public class WorkerResponse
     public DateTime DOB { get; set; }
     public string Email { get; set; } = default!;
     public DateTime CertifiedUntil { get; set; }
-    public WorkerPosition WorkerPosition { get; set; }
+    public string WorkerPosition { get; set; } = default!;
     public string? Picture { get; set; }
 }
 

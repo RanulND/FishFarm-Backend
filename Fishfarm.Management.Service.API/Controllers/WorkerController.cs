@@ -17,13 +17,13 @@ public class WorkerController : ControllerBase
 		_workerService = workerService;
 	}
 
-	[HttpGet]
-	public async Task<IActionResult> GetAllWorkersForFishFarm()
+	[HttpGet("{fishfarmId}")]
+	public async Task<IActionResult> GetAllWorkersForFishFarm(long fishFarmId)
 	{
 		try
 		{
-			return Ok(await _workerService.GetAllWorkersForFishFarmAsync());
-		} catch(Exception e)
+			return Ok(await _workerService.GetAllWorkersForFishFarmAsync(fishFarmId));
+		} catch (Exception e)
 		{
 			return BadRequest(e.Message);
 		}
@@ -35,7 +35,7 @@ public class WorkerController : ControllerBase
 		try
 		{
 			return Ok(await _workerService.CreateWorkerAsync(request));
-		}catch (Exception e)
+		} catch (Exception e)
 		{
 			return BadRequest(e.Message);
 		}
@@ -47,9 +47,9 @@ public class WorkerController : ControllerBase
 		try
 		{
 			return Ok(await _workerService.UpdateWorkerAsync(id, request));
-		}catch(Exception e)
+		} catch (Exception e)
 		{
-			if(e is WorkerNotFoundException)
+			if (e is WorkerNotFoundException)
 			{
 				return NotFound(e.Message);
 			}
@@ -58,8 +58,9 @@ public class WorkerController : ControllerBase
 		}
 	}
 
-	[HttpDelete]
-	public async Task<IActionResult> DeleteWorker(long id, long fishFarmId)
+	[HttpDelete("{fishFarmId}/{id}")]
+
+    public async Task<IActionResult> DeleteWorker(long fishFarmId, long id)
 	{
 		try
 		{

@@ -33,7 +33,7 @@ namespace Fishfarm.Management.Service.API.Services
                 throw new WorkerExistException("Worker already exists in the organization");
             }
 
-            var fishFarm = _fishFarmService.GetFishFarmAsync(request.FishFarmId);
+            var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => _.Id == request.FishFarmId) ?? throw new FishFarmNotFoundException("Fish Farm Not Found");
 
             var newWorker = new Worker()
             {
@@ -43,7 +43,7 @@ namespace Fishfarm.Management.Service.API.Services
                 Email = request.Email,
                 Picture = request.Picture,
                 WorkerPosition = request.WorkerPosition,
-                FishFarm = _mapper.Map<FishFarm>(fishFarm)
+                FishFarm = fishFarm
             };
 
             var res = await dbContext.Workers.AddAsync(newWorker);
@@ -60,11 +60,13 @@ namespace Fishfarm.Management.Service.API.Services
             await dbContext.SaveChangesAsync();
 
         }
-        public async Task<IEnumerable<WorkerResponse>> GetAllWorkersForFishFarmAsync()
+        public async Task<IEnumerable<WorkerResponse>> GetAllWorkersForFishFarmAsync(long fishFarmId)
         {
             using var dbContext = new FishFarmDbContext();
 
-            var res = await dbContext.Workers.ToListAsync();
+            //var res = await dbContext.Workers.ToListAsync();
+            var res = await dbContext.FishFarms.Include(_ => _.Workers).FirstOrDefaultAsync(_ => _.Id == fishFarmId);
+
 
             return _mapper.Map<IEnumerable<WorkerResponse>>(res);
         }
