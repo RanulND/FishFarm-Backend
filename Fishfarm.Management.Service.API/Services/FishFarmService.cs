@@ -70,7 +70,7 @@ public class FishFarmService : IFishFarmService
     {
         using var dbContext = new FishFarmDbContext();
 
-        var fishFarm = await dbContext.FishFarms.FirstOrDefaultAsync(_ => _.Id == id) ?? throw new FishFarmNotFoundException("Fish farm not found");
+        var fishFarm = await dbContext.FishFarms.Include(_ => _.Coordinate).FirstOrDefaultAsync(_ => _.Id == id) ?? throw new FishFarmNotFoundException("Fish farm not found");
 
         return _mapper.Map<FishFarmResponse>(fishFarm);
     }

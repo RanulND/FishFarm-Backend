@@ -73,6 +73,18 @@ public class FishFarmController : ControllerBase
 			return BadRequest(e.Message);
 		}
 	}
-	
+
+	[HttpGet("{id}")]
+	public async Task<IActionResult> GetFishFarm(long id)
+	{
+		try
+		{
+			return Ok(await _fishFarmService.GetFishFarmAsync(id));
+		}catch(Exception e)
+		{
+			return BadRequest(e.Message);
+		}
+	}
+
 }
 

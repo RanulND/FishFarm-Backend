@@ -17,7 +17,7 @@ public class WorkerController : ControllerBase
 		_workerService = workerService;
 	}
 
-	[HttpGet("{fishfarmId}")]
+	[HttpGet("{fishFarmId}")]
 	public async Task<IActionResult> GetAllWorkersForFishFarm(long fishFarmId)
 	{
 		try

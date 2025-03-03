@@ -64,8 +64,8 @@ namespace Fishfarm.Management.Service.API.Services
         {
             using var dbContext = new FishFarmDbContext();
 
-            //var res = await dbContext.Workers.ToListAsync();
-            var res = await dbContext.FishFarms.Include(_ => _.Workers).FirstOrDefaultAsync(_ => _.Id == fishFarmId);
+            var res = await dbContext.Workers.Where(_ => _.FishFarm.Id == fishFarmId).ToListAsync();
+            //var res = await dbContext.FishFarms.Include(_ => _.Workers).Where(_ => _.Id == fishFarmId).ToListAsync();
 
 
             return _mapper.Map<IEnumerable<WorkerResponse>>(res);
